@@ -1,34 +1,93 @@
 import styles from "./book.module.scss";
 import { useForm, SubmitHandler } from "react-hook-form";
+import yup from "../../yup/yupGlobal";
+import { yupResolver } from "@hookform/resolvers/yup";
+import Field from "yup/Field";
+
+type Inputs = {
+  numberAdults: number;
+  numberChildren: number;
+  day: string;
+  hours: string;
+  author: string;
+  phone: string;
+};
+
+const schema = yup.object().shape({
+  numberAdults: yup
+    .string()
+    .required("Số người đi không được để trống!!")
+    .numberAdults(),
+  numberChildren: yup.string().numberChildren(),
+  day: yup.string().required("Ngày đặt bàn không được để trống!!"),
+  hours: yup.string().required("Giờ đặt bàn không được để trống!!"),
+  author: yup.string().required("Họ và Tên người đặt không được để trống!!"),
+  phone: yup.string().required("Số điện thoại không được để trống!!"),
+});
 
 export default function Book() {
-  console.log(useForm);
+  const {
+    handleSubmit,
+    register,
+    watch,
+    formState: { errors },
+  } = useForm<Inputs>({ resolver: yupResolver(schema) });
+
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    console.log(data);
+  };
 
   return (
     <div className={styles.container}>
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className={styles.content}>
           <div className={styles.main}>
             <div className={styles.title}>Đặt Bàn</div>
             <div className={styles.order}>
               <div className={styles.column}></div>
-              <div className={styles.column}>
-                <div>
-                  <label htmlFor="numberPeople">Số người</label>
-                  <input
-                    className={styles.input}
-                    type="text"
-                    id="numberPeople"
-                  />
+              <div className={styles["column-2"]}>
+                <div className={styles.people}>
+                  <div className={styles.adults}>
+                    <Field
+                      innerText="Số người"
+                      className={styles.input}
+                      type="text"
+                      id="numberAdults"
+                      error={errors.numberAdults?.message}
+                      {...register("numberAdults")}
+                    />
+                  </div>
+                  <div className={styles.children}>
+                    <Field
+                      innerText="Số trẻ em"
+                      className={styles.input}
+                      type="text"
+                      id="numberChildren"
+                      error={errors.numberChildren?.message}
+                      {...register("numberChildren")}
+                    />
+                  </div>
                 </div>
                 <div className={styles.schedule}>
                   <div className={styles.day}>
-                    <label htmlFor="day">Ngày</label>
-                    <input className={styles.input} type="date" id="day" />
+                    <Field
+                      innerText="Ngày"
+                      className={styles.input}
+                      type="date"
+                      id="day"
+                      error={errors.day?.message}
+                      {...register("day")}
+                    />
                   </div>
                   <div className={styles.hours}>
-                    <label htmlFor="hours">Giờ</label>
-                    <input className={styles.input} type="time" id="hours" />
+                    <Field
+                      innerText="Giờ"
+                      className={styles.input}
+                      type="time"
+                      id="hours"
+                      error={errors.hours?.message}
+                      {...register("hours")}
+                    />
                   </div>
                 </div>
                 <div className={styles.note}>
@@ -38,22 +97,27 @@ export default function Book() {
               </div>
               <div className={styles.column}>
                 <div className={styles.author}>
-                  <label htmlFor="author">Tên người đặt</label>
-                  <input className={styles.input} type="text" id="author" />
+                  <Field
+                    innerText="Họ và Tên người đặt"
+                    className={styles.input}
+                    type="text"
+                    id="author"
+                    error={errors.author?.message}
+                    {...register("author")}
+                  />
                 </div>
                 <div className={styles.phoneNumber}>
-                  <label htmlFor="phone">Số điện thoại</label>
-                  <input className={styles.input} type="text" id="phone" />
+                  <Field
+                    innerText="Số điện thoại"
+                    className={styles.input}
+                    type="text"
+                    id="phone"
+                    error={errors.phone?.message}
+                    {...register("phone")}
+                  />
                 </div>
                 <div className={styles.button}>
-                  <button
-                    type="submit"
-                    onClick={() => {
-                      console.log(123);
-                    }}
-                  >
-                    Đặt bàn
-                  </button>
+                  <button type="submit">Đặt bàn</button>
                 </div>
               </div>
             </div>

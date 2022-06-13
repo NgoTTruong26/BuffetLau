@@ -17,7 +17,6 @@ export default function Deals() {
   const [searchParams] = useSearchParams();
 
   const [currentPage, setCurrentPage] = useState<number>();
-  console.log(searchParams.get("page"));
 
   useEffect(() => {
     setData(() => {
