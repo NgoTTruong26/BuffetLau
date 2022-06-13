@@ -19,7 +19,7 @@ const schema = yup.object().shape({
     .required("Số người đi không được để trống!!")
     .numberAdults(),
   numberChildren: yup.string().numberChildren(),
-  day: yup.string().required("Ngày đặt bàn không được để trống!!"),
+  day: yup.string().required("Ngày đặt bàn không được để trống!!").day(),
   hours: yup.string().required("Giờ đặt bàn không được để trống!!"),
   author: yup.string().required("Họ và Tên người đặt không được để trống!!"),
   phone: yup.string().required("Số điện thoại không được để trống!!"),
