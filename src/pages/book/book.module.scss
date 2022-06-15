@@ -43,7 +43,7 @@
           input:focus {
             outline: none;
           }
-          .people {
+          .row-1 {
             display: flex;
             .adults,
             .children {
@@ -56,7 +56,7 @@
               padding-left: 10px;
             }
           }
-          .schedule {
+          .row-2 {
             display: flex;
             padding-top: 50px;
             .day,
@@ -70,10 +70,18 @@
               padding-left: 10px;
             }
           }
-          .note {
+          .row-3 {
+            display: flex;
             padding-top: 50px;
             padding-bottom: 40px;
+            .note {
+              padding-right: 10px;
+            }
+            .email {
+              padding-left: 10px;
+            }
           }
+
           .phoneNumber {
             padding-top: 50px;
           }

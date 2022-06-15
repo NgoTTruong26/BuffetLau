@@ -66,34 +66,72 @@ yup.addMethod<yup.StringSchema>(yup.string, "day", function (message?) {
   return this.test("day2", message, function (value) {
     const { path, createError } = this;
 
-    const today = new Date("2022/6/29");
+    const today = new Date();
 
-    let requireDay = new Date("2022/6/29");
+    let requireDay = new Date();
     requireDay.setDate(requireDay.getDate() + 7);
 
     if (value) {
       const dateBooking = new Date(value);
 
-      if (
-        !(
-          dateBooking.getDate() >= today.getDate() &&
-          dateBooking.getDate() <= requireDay.getDate()
-        )
-      ) {
-        console.log(dateBooking.getDate());
-        console.log(requireDay);
-        console.log(today);
-
-        if (!true) {
+      if (requireDay.getDate() - today.getDate() + 1 === 8) {
+        if (
+          !(
+            dateBooking.getDate() >= today.getDate() &&
+            dateBooking.getDate() <= requireDay.getDate() &&
+            dateBooking.getMonth() === today.getMonth()
+          )
+        ) {
+          return createError({
+            path,
+            message: `ngày đặt bàn phải trong khoảng 7 ngày tính từ hôm nay đến ngày ${requireDay.getDate()}/${
+              requireDay.getMonth() + 1
+            }/${requireDay.getFullYear()}`,
+          });
+        }
+      } else {
+        if (
+          !(
+            (dateBooking.getDate() >= today.getDate() &&
+              dateBooking.getMonth() === today.getMonth()) ||
+            (dateBooking.getDate() <= requireDay.getDate() &&
+              dateBooking.getMonth() === requireDay.getMonth())
+          )
+        ) {
           return createError({
             path,
             message: `ngày đặt bàn phải trong khoảng 7 ngày tính từ hôm nay đến ngày ${requireDay}`,
           });
         }
+      }
+    }
 
+    return true;
+  });
+});
+
+yup.addMethod<yup.StringSchema>(yup.string, "hours", function (message?) {
+  return this.test("hours2", message, function (value) {
+    const { path, createError } = this;
+
+    const today = new Date();
+    console.log(today.getHours());
+
+    console.log(parseInt(value!.split(":")[0]));
+
+    if (value) {
+      if (
+        !(
+          (parseInt(value!.split(":")[0]) >= 9 &&
+            parseInt(value!.split(":")[0]) <= 14) ||
+          (parseInt(value!.split(":")[0]) >= 17 &&
+            parseInt(value!.split(":")[0]) <= 23)
+        )
+      ) {
         return createError({
           path,
-          message: `ngày đặt bàn phải trong khoảng 7 ngày tính từ hôm nay đến ngày ${requireDay}`,
+          message:
+            "Cửa hàng chỉ mở cửa lúc:<br/>Sáng: 9h00 - 14h30<br/> Tối: 17h00 - 23h00",
         });
       }
     }
@@ -125,6 +163,14 @@ declare module "yup" {
     TOut extends TType = TType
   > extends yup.BaseSchema<TType, TContext, TOut> {
     day(message?: string): StringSchema<TType, TContext>;
+  }
+
+  interface StringSchema<
+    TType extends Maybe<string> = string | undefined,
+    TContext extends AnyObject = AnyObject,
+    TOut extends TType = TType
+  > extends yup.BaseSchema<TType, TContext, TOut> {
+    hours(message?: string): StringSchema<TType, TContext>;
   }
 
   /* interface NumberSchema<

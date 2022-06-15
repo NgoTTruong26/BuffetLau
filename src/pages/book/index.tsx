@@ -11,6 +11,7 @@ type Inputs = {
   hours: string;
   author: string;
   phone: string;
+  email: string;
 };
 
 const schema = yup.object().shape({
@@ -20,9 +21,10 @@ const schema = yup.object().shape({
     .numberAdults(),
   numberChildren: yup.string().numberChildren(),
   day: yup.string().required("Ngày đặt bàn không được để trống!!").day(),
-  hours: yup.string().required("Giờ đặt bàn không được để trống!!"),
+  hours: yup.string().required("Giờ đặt bàn không được để trống!!").hours(),
   author: yup.string().required("Họ và Tên người đặt không được để trống!!"),
   phone: yup.string().required("Số điện thoại không được để trống!!"),
+  email: yup.string().required("Email không được để trống!!"),
 });
 
 export default function Book() {
@@ -46,7 +48,7 @@ export default function Book() {
             <div className={styles.order}>
               <div className={styles.column}></div>
               <div className={styles["column-2"]}>
-                <div className={styles.people}>
+                <div className={styles["row-1"]}>
                   <div className={styles.adults}>
                     <Field
                       innerText="Số người"
@@ -68,7 +70,7 @@ export default function Book() {
                     />
                   </div>
                 </div>
-                <div className={styles.schedule}>
+                <div className={styles["row-2"]}>
                   <div className={styles.day}>
                     <Field
                       innerText="Ngày"
@@ -90,9 +92,25 @@ export default function Book() {
                     />
                   </div>
                 </div>
-                <div className={styles.note}>
-                  <label htmlFor="note">Ghi chú</label>
-                  <input className={styles.input} type="text" id="note" />
+                <div className={styles["row-3"]}>
+                  <div className={styles.note}>
+                    <Field
+                      innerText="Ghi chú"
+                      className={styles.input}
+                      type="text"
+                      id="note"
+                    />
+                  </div>
+                  <div className={styles.email}>
+                    <Field
+                      innerText="Email"
+                      className={styles.input}
+                      type="text"
+                      id="email"
+                      error={errors.email?.message}
+                      {...register("email")}
+                    />
+                  </div>
                 </div>
               </div>
               <div className={styles.column}>
