@@ -62,6 +62,25 @@ yup.addMethod<yup.StringSchema>(
   }
 );
 
+yup.addMethod<yup.StringSchema>(yup.string, "email", function (message?) {
+  return this.test("email2", message, function (value) {
+    const validateEmail = (email: string) => {
+      return /\S+@\S+\.\S+/.test(email);
+    };
+
+    const { path, createError } = this;
+
+    if (!validateEmail(value!)) {
+      return createError({
+        path,
+        message: "Vui lòng nhập đúng email!!",
+      });
+    }
+
+    return true;
+  });
+});
+
 yup.addMethod<yup.StringSchema>(yup.string, "day", function (message?) {
   return this.test("day2", message, function (value) {
     const { path, createError } = this;
@@ -115,9 +134,6 @@ yup.addMethod<yup.StringSchema>(yup.string, "hours", function (message?) {
     const { path, createError } = this;
 
     const today = new Date();
-    console.log(today.getHours());
-
-    console.log(parseInt(value!.split(":")[0]));
 
     if (value) {
       if (
@@ -171,6 +187,14 @@ declare module "yup" {
     TOut extends TType = TType
   > extends yup.BaseSchema<TType, TContext, TOut> {
     hours(message?: string): StringSchema<TType, TContext>;
+  }
+
+  interface StringSchema<
+    TType extends Maybe<string> = string | undefined,
+    TContext extends AnyObject = AnyObject,
+    TOut extends TType = TType
+  > extends yup.BaseSchema<TType, TContext, TOut> {
+    email(message?: string): StringSchema<TType, TContext>;
   }
 
   /* interface NumberSchema<

@@ -23,8 +23,13 @@ const schema = yup.object().shape({
   day: yup.string().required("Ngày đặt bàn không được để trống!!").day(),
   hours: yup.string().required("Giờ đặt bàn không được để trống!!").hours(),
   author: yup.string().required("Họ và Tên người đặt không được để trống!!"),
-  phone: yup.string().required("Số điện thoại không được để trống!!"),
-  email: yup.string().required("Email không được để trống!!"),
+  phone: yup
+    .string()
+    .required("Số điện thoại không được để trống!!")
+    .matches(/(((\+|)84)|0)(3|5|7|8|9)+([0-9]{8})\b/, {
+      message: "Số điện thoại nhập không hợp lệ!!",
+    }),
+  email: yup.string().required("Email không được để trống!!").email(),
 });
 
 export default function Book() {

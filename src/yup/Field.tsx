@@ -14,20 +14,16 @@ function Field(
   { innerText, className, type, error, id, ...props }: Props,
   ref: any
 ) {
-  console.log(typeof error);
-
-  const refErr: { current: any } = useRef(null);
-
-  useEffect(() => {
-    if (error) {
-      refErr.current!.innerHTML = error;
-    }
-  }, [error]);
   return (
     <div>
       <label htmlFor={id}>{innerText}</label>
       <input ref={ref} type={type} className={className} id={id} {...props} />
-      {error && <p className={styles.error} ref={refErr}></p>}
+      {error && (
+        <p
+          className={styles.error}
+          dangerouslySetInnerHTML={{ __html: error }}
+        ></p>
+      )}
     </div>
   );
 }
