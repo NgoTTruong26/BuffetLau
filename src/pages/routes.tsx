@@ -2,7 +2,8 @@ import { lazy } from "react";
 
 const Home = lazy(() => import("./home"));
 const Deals = lazy(() => import("./deals"));
-const Book = lazy(() => import("./book"));
+const Book = lazy(() => import("./bookings"));
+const Login = lazy(() => import("components/Login"));
 
 export const homeRoutes = [
   {
@@ -12,12 +13,20 @@ export const homeRoutes = [
   },
   {
     name: "Deals",
-    path: "/uu-dai",
+    path: "uu-dai",
     element: <Deals />,
   },
   {
     name: "Book",
-    path: "/dat-ban",
+    path: "dat-ban",
     element: <Book />,
+  },
+];
+
+export const accountRouters = [
+  {
+    name: "Login",
+    path: "login",
+    element: <Login />,
   },
 ];

@@ -5,14 +5,14 @@ import Paginate from "./Paginate";
 import ContentPost from "./ContentPost";
 import { useSearchParams } from "react-router-dom";
 
-interface DATA {
+interface Data {
   count: number;
   rows: [];
   totalPage: number;
 }
 
 export default function Deals() {
-  let [data, setData] = useState<DATA>({} as DATA);
+  let [data, setData] = useState<Data>({} as Data);
 
   const [searchParams] = useSearchParams();
 
@@ -21,7 +21,7 @@ export default function Deals() {
   useEffect(() => {
     setData(() => {
       window.scrollTo(0, 0);
-      return {} as DATA;
+      return {} as Data;
     });
     Axios.get(
       searchParams.get("page")
@@ -29,8 +29,6 @@ export default function Deals() {
         : `http://localhost:3001/uu-dai`
     )
       .then((response) => {
-        console.log(response);
-
         return response.data;
       })
       .then((data) => setData(data));

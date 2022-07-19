@@ -1,19 +1,30 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Layout from "./layout";
-import { homeRoutes } from "./pages/routes";
+import Layout from "./components/layout";
+import { homeRoutes, accountRouters } from "./pages/routes";
+import Login from "components/Login";
+import Home from "pages/home";
 
-const routes = [...homeRoutes];
+const pages = [...homeRoutes];
+const account = [...accountRouters];
 
 function App() {
   return (
     <BrowserRouter>
-      <Layout>
-        <Routes>
-          {routes.map((route, idx) => (
-            <Route key={idx} path={route.path} element={route.element} />
-          ))}
-        </Routes>
-      </Layout>
+      <Routes>
+        <Route path="/">
+          <Route element={<Layout />}>
+            {pages.map((route, idx) => (
+              <Route key={idx} path={route.path} element={route.element} />
+            ))}
+          </Route>
+
+          <Route path="account">
+            {account.map((route, idx) => (
+              <Route key={idx} path={route.path} element={route.element} />
+            ))}
+          </Route>
+        </Route>
+      </Routes>
     </BrowserRouter>
   );
 }

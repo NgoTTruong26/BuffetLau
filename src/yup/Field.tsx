@@ -1,30 +1,53 @@
 import styles from "yup/yup.module.scss";
+import clsx from "clsx";
 
-import { forwardRef, useEffect, useRef } from "react";
+import { forwardRef } from "react";
 
 interface Props {
   innerText: string;
-  className: string;
+  classNameInput: string;
   type: string;
   id: string;
+  label?: boolean;
+  placeholder?: string;
+  classNameError?: string;
   error?: string;
 }
 
 function Field(
-  { innerText, className, type, error, id, ...props }: Props,
+  {
+    label = true,
+    placeholder = "",
+    innerText,
+    classNameInput,
+    classNameError,
+    type,
+    error,
+    id,
+    ...props
+  }: Props,
   ref: any
 ) {
   return (
-    <div>
-      <label htmlFor={id}>{innerText}</label>
-      <input ref={ref} type={type} className={className} id={id} {...props} />
+    <>
+      {label && <label htmlFor={id}>{innerText}</label>}
+      <input
+        ref={ref}
+        placeholder={placeholder}
+        type={type}
+        className={clsx(classNameInput, {
+          classNameLogic: (onchange = (e: any) => e.target.value),
+        })}
+        id={id}
+        {...props}
+      />
       {error && (
         <p
-          className={styles.error}
+          className={clsx(styles.error, classNameError)}
           dangerouslySetInnerHTML={{ __html: error }}
         ></p>
       )}
-    </div>
+    </>
   );
 }
 
