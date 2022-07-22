@@ -16,7 +16,7 @@ interface Props {
 
 function Field(
   {
-    label = true,
+    label,
     placeholder = "",
     innerText,
     classNameInput,

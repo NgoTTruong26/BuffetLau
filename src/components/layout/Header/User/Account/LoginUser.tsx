@@ -1,8 +1,10 @@
 import clsx from "clsx";
-import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { logout } from "redux-toolkit/features/account/accountSlice";
 import styles from "./account.module.scss";
 
-interface Children {
+export interface Children {
   data: {
     id: string;
     dateOfBirth: string;
@@ -18,14 +20,25 @@ interface Children {
 }
 
 export default function LoginUser({ data }: Children) {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   return (
     <div className={styles.account}>
       <div className={styles.container}>
         <i className={clsx("fa-solid fa-circle-user", styles.user)}></i>
         <div className={styles.popover}>
-          <a>{data.fullName}</a>
+          <p>{data.fullName}</p>
           <Link to="/account/register">Đăng kí</Link>
           <Link to="/account/reset-password">Lấy lại mật khẩu</Link>
+          <p
+            onClick={() => {
+              dispatch(logout());
+              navigate("/");
+            }}
+          >
+            Đăng xuất
+          </p>
         </div>
       </div>
     </div>

@@ -23,8 +23,16 @@
       min-width: 135px;
       display: none;
       padding: 10px;
-      > a + a {
+      min-width: 145px;
+      > a + a,
+      a + p {
         padding-top: 10px;
+      }
+      > p {
+        margin: 0;
+        &:hover {
+          color: red;
+        }
       }
       > a {
         display: block;

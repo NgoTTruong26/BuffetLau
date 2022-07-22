@@ -58,6 +58,7 @@ export default function Book() {
                 <div className={styles["row-1"]}>
                   <div className={styles.adults}>
                     <Field
+                      label={true}
                       innerText="Số người"
                       classNameInput={styles.input}
                       type="text"
@@ -68,6 +69,7 @@ export default function Book() {
                   </div>
                   <div className={styles.children}>
                     <Field
+                      label={true}
                       innerText="Số trẻ em"
                       classNameInput={styles.input}
                       type="text"
@@ -80,6 +82,7 @@ export default function Book() {
                 <div className={styles["row-2"]}>
                   <div className={styles.day}>
                     <Field
+                      label={true}
                       innerText="Ngày"
                       classNameInput={styles.input}
                       type="date"
@@ -90,6 +93,7 @@ export default function Book() {
                   </div>
                   <div className={styles.hours}>
                     <Field
+                      label={true}
                       innerText="Giờ"
                       classNameInput={styles.input}
                       type="time"
@@ -102,6 +106,7 @@ export default function Book() {
                 <div className={styles["row-3"]}>
                   <div className={styles.note}>
                     <Field
+                      label={true}
                       innerText="Ghi chú"
                       classNameInput={styles.input}
                       type="text"
@@ -110,6 +115,7 @@ export default function Book() {
                   </div>
                   <div className={styles.email}>
                     <Field
+                      label={true}
                       innerText="Email"
                       classNameInput={styles.input}
                       type="text"
@@ -123,6 +129,7 @@ export default function Book() {
               <div className={styles.column}>
                 <div className={styles.author}>
                   <Field
+                    label={true}
                     innerText="Họ và Tên người đặt"
                     classNameInput={styles.input}
                     type="text"
@@ -133,6 +140,7 @@ export default function Book() {
                 </div>
                 <div className={styles.phoneNumber}>
                   <Field
+                    label={true}
                     innerText="Số điện thoại"
                     classNameInput={styles.input}
                     type="text"

@@ -2,12 +2,14 @@ import styles from "components/Login/login.module.scss";
 import Field from "yup/Field";
 import logo from "components/layout/Header/Image/laut12.png";
 import src from "./backgroundLogin.jpg";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import yup from "yup/yupGlobal";
 import clsx from "clsx";
-import Axios from "axios";
 import { API } from "configs/service";
+import { login } from "redux-toolkit/features/account/accountSlice";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 type Inputs = {
   username: string;
@@ -60,9 +62,15 @@ export default function Login() {
   });
   let { username, password } = watch();
 
+  const dispatch = useDispatch();
+
+  const navigate = useNavigate();
+
   const onSubmit = handleSubmit((data) => {
     API.post("/login", data)
-      .then((response) => console.log(response.data))
+      .then((response) => response.data)
+      .then((data) => dispatch(login(data)))
+      .then(() => navigate("/"))
       .catch((error) => {
         console.log(error.response);
       });
@@ -87,7 +95,6 @@ export default function Login() {
             <form onSubmit={onSubmit}>
               <div className={styles.wrappInput}>
                 <Field
-                  label={false}
                   innerText="Tài khoản"
                   classNameInput={clsx(styles.input, {
                     [`${styles["has-value"]}`]: watch().username,
@@ -104,7 +111,6 @@ export default function Login() {
               </div>
               <div className={styles.wrappInput}>
                 <Field
-                  label={false}
                   innerText="password"
                   classNameInput={clsx(styles.input, {
                     [`${styles["has-value"]}`]: watch().password,

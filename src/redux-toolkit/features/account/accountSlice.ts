@@ -1,20 +1,34 @@
 import { createSlice } from "@reduxjs/toolkit";
-import Account from "components/layout/Header/User/Account";
 
-interface initialState {
-  value: JSX.Element;
+interface State {
+  data: {
+    id: string;
+    dateOfBirth: string;
+    email: string;
+    gender: boolean;
+    phoneNumber: string;
+    address: string;
+    fullName: string;
+    avatar: string;
+    admin: boolean;
+    username: string;
+  } | null;
 }
 
-const initialState: initialState = { value: Account() };
+const initialState: State = { data: null };
 
 export const accountSlice = createSlice({
   name: "account",
   initialState,
   reducers: {
-    login: (state, value) => {
-      console.log(value);
-    },
-    logout: (state) => {},
+    login: (state, value) => ({
+      ...state,
+      data: value.payload.data,
+    }),
+    logout: (state) => ({
+      ...state,
+      data: null,
+    }),
   },
 });
 
