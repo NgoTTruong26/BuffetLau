@@ -5,7 +5,7 @@ import Mobile from "./Mobile";
 import Account from "components/layout/Header/User/Account";
 import { RootState } from "redux-toolkit/app/store";
 import LoginUser from "./User/Account/LoginUser";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "redux-toolkit/app/hooks";
 
 export const menu = [
   {
@@ -35,8 +35,8 @@ export const menu = [
 ];
 
 export default function Header() {
-  const data = useSelector((state: RootState) => {
-    return state.account.data;
+  const data = useAppSelector((state: RootState) => {
+    return state.account.login.data;
   });
 
   return (

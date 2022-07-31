@@ -24,7 +24,8 @@
       display: none;
       padding: 10px;
       min-width: 145px;
-      > a + a,
+      > p + a,
+      a + a,
       a + p {
         padding-top: 10px;
       }

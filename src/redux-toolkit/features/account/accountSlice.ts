@@ -1,39 +1,89 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-interface State {
-  data: {
-    id: string;
-    dateOfBirth: string;
-    email: string;
-    gender: boolean;
-    phoneNumber: string;
-    address: string;
-    fullName: string;
-    avatar: string;
-    admin: boolean;
-    username: string;
-  } | null;
+interface Data {
+  id: string;
+  dateOfBirth: string;
+  email: string;
+  gender: boolean;
+  phoneNumber: string;
+  address: string;
+  fullName: string;
+  avatar: string;
+  admin: boolean;
+  username: string;
+  token: string;
 }
 
-const initialState: State = { data: null };
+interface initialState {
+  login: {
+    isFetching: boolean;
+    data: Data | null;
+    error: boolean;
+  };
+  logout: {
+    isFetching: boolean;
+    error: boolean;
+  };
+  register: {
+    isFetching: boolean;
+    success: boolean;
+    error: boolean;
+  };
+}
+
+const initialState: initialState = {
+  login: {
+    isFetching: false,
+    data: null,
+    error: false,
+  },
+  logout: {
+    isFetching: false,
+    error: false,
+  },
+  register: {
+    isFetching: false,
+    success: false,
+    error: false,
+  },
+};
 
 export const accountSlice = createSlice({
   name: "account",
   initialState,
   reducers: {
+    loginLoading: (state) => ({
+      ...state,
+      login: {
+        ...state.login,
+        isFetching: true,
+      },
+    }),
+
     login: (state, value) => ({
       ...state,
-      data: value.payload.data,
+      login: {
+        isFetching: false,
+        data: value.payload,
+        error: false,
+      },
     }),
     logout: (state) => ({
       ...state,
-      data: null,
+      logout: {
+        isFetching: false,
+        error: false,
+      },
+      login: {
+        ...state.login,
+        data: null,
+      },
     }),
   },
 });
 
 const { actions, reducer } = accountSlice;
 
-export const { login, logout } = actions;
+export const { login, logout, loginLoading } = actions;
 
 export default reducer;

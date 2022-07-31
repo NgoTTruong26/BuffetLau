@@ -1,8 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "./components/layout";
-import { homeRoutes, accountRouters } from "./pages/routes";
-import Login from "components/Login";
-import Home from "pages/home";
+import { homeRoutes, accountRouters } from "./routes/routes";
 
 const pages = [...homeRoutes];
 const account = [...accountRouters];

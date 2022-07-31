@@ -6,14 +6,19 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import yup from "yup/yupGlobal";
 import clsx from "clsx";
-import { API } from "configs/service";
-import { login } from "redux-toolkit/features/account/accountSlice";
-import { useDispatch } from "react-redux";
+
+import {
+  login,
+  loginLoading,
+} from "redux-toolkit/features/account/accountSlice";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "redux-toolkit/app/hooks";
+import { API } from "api/axios";
+import Cookies from "js-cookie";
 
 type Inputs = {
   username: string;
-  password: string;
+  passwordClient: string;
 };
 
 const schema = yup.object().shape({
@@ -25,7 +30,7 @@ const schema = yup.object().shape({
       "Vui lòng nhập vào mục này",
       (value) => value!.trim() !== ""
     ),
-  password: yup
+  passwordClient: yup
     .string()
     .required("Vui lòng nhập vào mục này")
     .test(
@@ -56,20 +61,29 @@ export default function Login() {
   } = useForm<Inputs>({
     defaultValues: {
       username: "",
-      password: "",
+      passwordClient: "",
     },
     resolver: yupResolver(schema),
   });
-  let { username, password } = watch();
+  let { username, passwordClient } = watch();
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
 
   const onSubmit = handleSubmit((data) => {
+    dispatch(loginLoading());
     API.post("/login", data)
       .then((response) => response.data)
-      .then((data) => dispatch(login(data)))
+      .then((response) => {
+        /* const { refreshToken, ...other } = response.data;
+        Cookies.set("refreshToken", refreshToken, {
+          secure: false, // deploy đổi thành true
+          sameSite: "strict",
+        }); */
+
+        dispatch(login(response.data));
+      })
       .then(() => navigate("/"))
       .catch((error) => {
         console.log(error.response);
@@ -113,21 +127,21 @@ export default function Login() {
                 <Field
                   innerText="password"
                   classNameInput={clsx(styles.input, {
-                    [`${styles["has-value"]}`]: watch().password,
-                    [`${styles["input-err"]}`]: errors.password,
+                    [`${styles["has-value"]}`]: watch().passwordClient,
+                    [`${styles["input-err"]}`]: errors.passwordClient,
                   })}
                   classNameError={styles[`p-err`]}
                   type="password"
                   id="password"
                   placeholder="Password"
-                  error={errors.password?.message}
-                  {...register("password")}
+                  error={errors.passwordClient?.message}
+                  {...register("passwordClient")}
                 />
                 <span className={styles.focusInput} data-placeholder=""></span>
               </div>
               <Btn
                 disabled={
-                  username.trim() !== "" && password.trim() !== ""
+                  username.trim() !== "" && passwordClient.trim() !== ""
                     ? false
                     : true
                 }

@@ -22,7 +22,6 @@ export interface Children {
 export default function LoginUser({ data }: Children) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   return (
     <div className={styles.account}>
       <div className={styles.container}>
@@ -31,6 +30,7 @@ export default function LoginUser({ data }: Children) {
           <p>{data.fullName}</p>
           <Link to="/account/register">Đăng kí</Link>
           <Link to="/account/reset-password">Lấy lại mật khẩu</Link>
+          {data.admin && <Link to="admin/get-all-users">Xem thành viên</Link>}
           <p
             onClick={() => {
               dispatch(logout());
