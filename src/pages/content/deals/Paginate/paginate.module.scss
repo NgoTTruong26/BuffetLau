@@ -1,0 +1,30 @@
+.paginate {
+  width: fit-content;
+  margin: 35px auto 0 auto;
+
+  .disabled {
+    color: #dee2e6 !important;
+  }
+
+  .btn {
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    font-size: 20px;
+    padding: 8px 24px;
+    color: #939393;
+    &:not(.disabled):hover {
+      cursor: pointer;
+      background-color: #e9ecef;
+      border-color: #dee2e6;
+    }
+  }
+
+  .active {
+    background-color: #d0011b;
+    color: #fff;
+    &:hover {
+      cursor: pointer;
+      background-color: #d0011b !important;
+    }
+  }
+}

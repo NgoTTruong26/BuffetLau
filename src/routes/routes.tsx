@@ -1,10 +1,10 @@
 import { lazy } from "react";
 
-const Home = lazy(() => import("../pages/home"));
-const Deals = lazy(() => import("../pages/deals"));
-const Book = lazy(() => import("../pages/bookings"));
-const Login = lazy(() => import("components/Login"));
-const GetAllUsers = lazy(() => import("pages/admin/GetAllUsers"));
+const Home = lazy(() => import("../pages/content/home"));
+const Deals = lazy(() => import("../pages/content/deals"));
+const Book = lazy(() => import("../pages/content/bookings"));
+const Login = lazy(() => import("pages/account/Login"));
+const GetAllUsers = lazy(() => import("pages/content/admin/GetAllUsers"));
 
 export const homeRoutes = [
   {

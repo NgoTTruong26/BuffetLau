@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Layout from "./components/layout";
+import Layout from "./layout";
 import { homeRoutes, accountRouters } from "./routes/routes";
 
 const pages = [...homeRoutes];

@@ -1,0 +1,76 @@
+@import url("https://fonts.googleapis.com/css2?family=Lobster&family=Pacifico&display=swap");
+
+.container {
+  background-color: #fbfbfb;
+  min-height: 100vh;
+  margin-bottom: 90px;
+
+  .main {
+    position: relative;
+    top: 100px;
+    max-width: 1250px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+
+    .paginate {
+      width: 100%;
+      ul {
+        justify-content: center;
+        display: flex;
+        > li {
+          margin: 0 30px;
+          list-style: none;
+        }
+
+        .active {
+          color: red;
+        }
+      }
+    }
+    .title {
+      width: 100%;
+      text-align: center;
+      .titleContent {
+        font-family: "Lobster", cursive;
+        font-size: 60px;
+        padding: 10px 0;
+        margin: 40px 20px;
+        border-bottom: 1px solid #d9d9d0;
+      }
+    }
+
+    .collection {
+      display: flex;
+      flex-wrap: wrap;
+      min-height: 100vh;
+
+      .item {
+        width: calc(100% / 3);
+        padding: 0 20px 30px;
+        .content {
+          box-shadow: 0 1px 2px rgb(0 0 0 / 10%);
+          border-bottom: 1px solid rgba(236, 139, 139, 0.1019607843);
+          padding: 10px;
+          background-color: #fff;
+          height: 500px;
+          .img-block {
+            -webkit-background-size: 100%;
+            background-position: center;
+            transition: all 0.5s ease;
+            background-repeat: no-repeat;
+            &:hover {
+              cursor: pointer;
+              background-size: 420px 280px;
+            }
+            .img-hidden {
+              max-width: 100%;
+              max-height: 100%;
+              visibility: hidden;
+            }
+          }
+        }
+      }
+    }
+  }
+}

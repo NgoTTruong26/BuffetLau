@@ -1,23 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-
-interface Data {
-  id: string;
-  dateOfBirth: string;
-  email: string;
-  gender: boolean;
-  phoneNumber: string;
-  address: string;
-  fullName: string;
-  avatar: string;
-  admin: boolean;
-  username: string;
-  token: string;
-}
+import { User } from "types/User";
 
 interface initialState {
   login: {
     isFetching: boolean;
-    data: Data | null;
+    data: User | null;
     error: boolean;
   };
   logout: {
@@ -59,6 +46,13 @@ export const accountSlice = createSlice({
         isFetching: true,
       },
     }),
+    LogoutLoading: (state) => ({
+      ...state,
+      logout: {
+        ...state.logout,
+        isFetching: true,
+      },
+    }),
 
     login: (state, value) => ({
       ...state,
@@ -84,6 +78,6 @@ export const accountSlice = createSlice({
 
 const { actions, reducer } = accountSlice;
 
-export const { login, logout, loginLoading } = actions;
+export const { login, logout, loginLoading, LogoutLoading } = actions;
 
 export default reducer;
