@@ -4,35 +4,36 @@ import { useEffect, useState } from "react";
 import Paginate from "./Paginate";
 import ContentPost from "./ContentPost";
 import { useSearchParams } from "react-router-dom";
-
-interface Data {
-  count: number;
-  rows: [];
-  totalPage: number;
-}
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { BASE_URL } from "api/axios";
+import { DataDeals } from "types/DataDeals";
+import {
+  usePrefetchQueryDeals,
+  useQueryGetDeals,
+} from "hooks/useQueryGetDeals";
 
 export default function Deals() {
-  let [data, setData] = useState<Data>({} as Data);
-
   const [searchParams] = useSearchParams();
 
-  const [currentPage, setCurrentPage] = useState<number>();
+  const [currentPage, setCurrentPage] = useState<number>(
+    parseInt(searchParams.get("page") ? searchParams.get("page")! : "1")
+  );
+
+  const queryClient = useQueryClient();
+
+  const query = useQueryGetDeals(currentPage, searchParams);
+
+  const { status, data, isFetching } = query;
+
+  const prefetchQueryDeals = usePrefetchQueryDeals;
 
   useEffect(() => {
-    setData(() => {
-      window.scrollTo(0, 0);
-      return {} as Data;
-    });
-    Axios.get(
-      searchParams.get("page")
-        ? `http://localhost:3002/uu-dai?page=${searchParams.get("page")}`
-        : `http://localhost:3002/uu-dai`
-    )
-      .then((response) => {
-        return response.data;
-      })
-      .then((data) => setData(data));
-  }, [currentPage]);
+    if (data) {
+      if (currentPage < data.totalPage) {
+        prefetchQueryDeals(queryClient, currentPage, searchParams);
+      }
+    }
+  }, [data, queryClient, currentPage]);
 
   const handleChangePage = (e: number) => {
     setCurrentPage(e);
@@ -44,10 +45,10 @@ export default function Deals() {
         <div className={styles.title}>
           <div className={styles.titleContent}>Ưu Đãi</div>
         </div>
-        <ContentPost data={data && data.rows} />
+        <ContentPost data={data! && data.rows} />
         <div className={styles.paginate}>
           <Paginate
-            countPageNumber={data && data.totalPage}
+            countPageNumber={data! && data.totalPage}
             changePage={handleChangePage}
           />
         </div>

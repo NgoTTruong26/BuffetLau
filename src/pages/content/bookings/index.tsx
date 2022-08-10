@@ -1,9 +1,9 @@
-import Axios from "axios";
 import styles from "./bookings.module.scss";
 import { useForm, SubmitHandler } from "react-hook-form";
 import yup from "components/yup/yupGlobal";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Field from "components/yup/Field";
+import { bookingsAPI } from "api/bookingsAPI";
 
 type Inputs = {
   numberAdults: number;
@@ -42,9 +42,7 @@ export default function Book() {
   } = useForm<Inputs>({ resolver: yupResolver(schema) });
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    await Axios.post("http://localhost:3001/bookings/create-booking", {
-      data,
-    }).then((response) => console.log(response.data));
+    bookingsAPI(data);
   };
 
   return (

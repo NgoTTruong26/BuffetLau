@@ -27,7 +27,7 @@ export const axiosInterceptors = ({
           return;
         }
 
-        dispatch(login({ ...data, token: data.accessToken }));
+        dispatch(login({ ...user, token: data.accessToken }));
         config.headers!["token"] = `Bearer ${data.accessToken}`;
       }
       return config;

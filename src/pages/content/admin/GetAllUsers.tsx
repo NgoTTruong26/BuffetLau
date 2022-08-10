@@ -1,42 +1,41 @@
-import { BASE_URL } from "api/axios";
-import { axiosInterceptors } from "api/axiosInterceptors";
-import { useEffect, useState } from "react";
+import { useQueryClient, UseQueryResult } from "@tanstack/react-query";
+import { useMutateRegister } from "hooks/useMutateGetAllUsers";
+import { useQueryGetAllUsers } from "hooks/useQueryGetAllUsers";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "redux-toolkit/app/hooks";
+import { User } from "types/User";
 
 interface Data {
   count: number;
-  users: any[];
+  users: User[];
 }
 
 export default function AllUsers() {
-  const [data, setData] = useState<Data>({} as Data);
-
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const user = useAppSelector(
     (state) => state.persistedReducer.account.login.data
   );
-  const dispatch = useDispatch();
 
-  useEffect(() => {
-    const API = axiosInterceptors({ user, dispatch, navigate });
+  const queryClient = useQueryClient();
 
-    API.get(BASE_URL + "/all-users", {
-      headers: {
-        token: user?.token ? `Bearer ${user?.token}` : "",
-      },
-    })
-      .then((response) => {
-        return response.data;
-      })
-      .then((data) => setData(data))
-      .catch((error) => console.log(error));
-  }, [user?.id]);
+  const query: UseQueryResult<Data> = useQueryGetAllUsers({
+    user,
+    dispatch,
+    navigate,
+  });
+  const { data, isFetching } = query;
 
-  return data.users ? (
-    <div>
+  const mutation = useMutateRegister(queryClient);
+
+  const { status } = mutation;
+
+  console.log(status);
+
+  return data ? (
+    <div style={{ minHeight: "100vh", marginTop: "100px" }}>
       <div>{data.count}</div>
       {data.users.map((user, index) => (
         <div key={index}>
@@ -50,6 +49,15 @@ export default function AllUsers() {
           </div>
         </div>
       ))}
+      <button
+        onClick={() =>
+          mutation.mutate({
+            fullName: "test",
+            username: "test",
+            password: "test",
+          })
+        }
+      ></button>
     </div>
   ) : (
     <div></div>
