@@ -43,7 +43,9 @@ export const usePrefetchQueryDeals = (
   currentPage: number,
   searchParams: URLSearchParams
 ) => {
-  return queryClient.prefetchQuery(["deals", currentPage + 1], () =>
-    getData(currentPage + 1, searchParams)
-  );
+  return currentPage < 6
+    ? queryClient.prefetchQuery(["deals", currentPage + 1], () =>
+        getData(currentPage === 0 ? 2 : currentPage + 1, searchParams)
+      )
+    : queryClient;
 };
