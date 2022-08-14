@@ -10,4 +10,7 @@ export interface User {
   admin: boolean;
   username: string;
   token: string;
+  position: string;
+  createdAt?: string;
+  updatedAt?: string;
 }

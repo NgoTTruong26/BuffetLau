@@ -10,8 +10,6 @@ export const useMutateRegister = (queryClient: QueryClient) => {
     {
       onSuccess(data) {
         queryClient.setQueryData(["allUsers"], (oldQueryData: any) => {
-          console.log(oldQueryData);
-
           return {
             count: oldQueryData.count + 1,
             users: [...oldQueryData.users, data.data.data],
