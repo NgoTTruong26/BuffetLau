@@ -6,7 +6,7 @@ import Account from "layout/Header/User/Account";
 import { RootState } from "redux-toolkit/app/store";
 import LoginUser from "./User/Account/LoginUser";
 import { useAppSelector } from "redux-toolkit/app/hooks";
-
+import clsx from "clsx";
 export const menu = [
   {
     title: "TRANG CHỦ",
@@ -40,7 +40,7 @@ export default function Header() {
   });
 
   return (
-    <header className={styles.header}>
+    <header className="bg-transparent py-[30px] fixed z-10 w-full">
       <div className={styles.navbar}>
         <div className={styles.container}>
           <Img />

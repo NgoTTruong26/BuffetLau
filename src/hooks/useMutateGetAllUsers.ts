@@ -11,8 +11,8 @@ export const useMutateRegister = (queryClient: QueryClient) => {
       onSuccess(data) {
         queryClient.setQueryData(["allUsers"], (oldQueryData: any) => {
           return {
-            count: oldQueryData.count + 1,
-            users: [...oldQueryData.users, data.data.data],
+            count: data.data.data.count,
+            users: data.data.data.rows,
           };
         });
       },

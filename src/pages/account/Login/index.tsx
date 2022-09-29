@@ -15,6 +15,9 @@ import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "redux-toolkit/app/hooks";
 import { axiosJWT } from "api/axios";
 
+import { FaUserAlt } from "@react-icons/all-files/fa/FaUserAlt";
+import { IoIosLock } from "@react-icons/all-files/io/IoIosLock";
+
 type Inputs = {
   username: string;
   passwordClient: string;
@@ -76,12 +79,6 @@ export default function Login() {
       .post("/login", data)
       .then((response) => response.data)
       .then((response) => {
-        /* const { refreshToken, ...other } = response.data;
-        Cookies.set("refreshToken", refreshToken, {
-          secure: false, // deploy đổi thành true
-          sameSite: "strict",
-        }); */
-
         dispatch(login(response.data));
       })
       .then(() => navigate("/"))
@@ -121,7 +118,9 @@ export default function Login() {
                   error={errors.username?.message}
                   {...register("username")}
                 />
-                <span className={styles.focusInput} data-placeholder=""></span>
+                <span className={styles.focusInput}>
+                  <FaUserAlt />
+                </span>
               </div>
               <div className={styles.wrappInput}>
                 <Field
@@ -137,7 +136,9 @@ export default function Login() {
                   error={errors.passwordClient?.message}
                   {...register("passwordClient")}
                 />
-                <span className={styles.focusInput} data-placeholder=""></span>
+                <span className={styles.focusInput}>
+                  <IoIosLock />
+                </span>
               </div>
               <Btn
                 disabled={

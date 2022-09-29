@@ -9,10 +9,7 @@ body {
   display: block;
   min-width: 280px;
   background-color: #fff;
-}
-
-.root {
-  height: 100%;
+  overflow-x: hidden;
 }
 
 .app {

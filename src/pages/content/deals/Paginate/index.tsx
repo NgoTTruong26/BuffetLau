@@ -35,8 +35,6 @@ function Paginate({ countPageNumber, changePage }: PROPS) {
     changePage(pageNumber);
   };
 
-  console.log(currentPageNumber);
-
   return (
     <div className={styles.paginate}>
       <Link

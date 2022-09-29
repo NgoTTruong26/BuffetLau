@@ -4,13 +4,15 @@ import yup from "components/yup/yupGlobal";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Field from "components/yup/Field";
 import { bookingsAPI } from "api/bookingsAPI";
+import { useSelector } from "react-redux";
+import { RootState } from "redux-toolkit/app/store";
 
 type Inputs = {
   numberAdults: number;
   numberChildren: number;
-  day: string;
-  hours: string;
-  author: string;
+  bookingDate: string;
+  bookingHours: string;
+  customer: string;
   phone: string;
   email: string;
 };
@@ -21,9 +23,12 @@ const schema = yup.object().shape({
     .required("Số người đi không được để trống!!")
     .numberAdults(),
   numberChildren: yup.string().numberChildren(),
-  day: yup.string().required("Ngày đặt bàn không được để trống!!").day(),
-  hours: yup.string().required("Giờ đặt bàn không được để trống!!").hours(),
-  author: yup.string().required("Họ và Tên người đặt không được để trống!!"),
+  bookingDate: yup.string().day("Ngày đặt bàn không được để trống!!"),
+  bookingHours: yup
+    .string()
+    .required("Giờ đặt bàn không được để trống!!")
+    .hours(),
+  customer: yup.string().required("Họ và Tên người đặt không được để trống!!"),
   phone: yup
     .string()
     .required("Số điện thoại không được để trống!!")
@@ -42,8 +47,12 @@ export default function Book() {
   } = useForm<Inputs>({ resolver: yupResolver(schema) });
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    bookingsAPI(data);
+    await bookingsAPI({ data });
   };
+
+  const user = useSelector((state: RootState) =>
+    console.log(state.persistedReducer.account.login.data)
+  );
 
   return (
     <div className={styles.container}>
@@ -84,9 +93,9 @@ export default function Book() {
                       innerText="Ngày"
                       classNameInput={styles.input}
                       type="date"
-                      id="day"
-                      error={errors.day?.message}
-                      {...register("day")}
+                      id="bookingDate"
+                      error={errors.bookingDate?.message}
+                      {...register("bookingDate")}
                     />
                   </div>
                   <div className={styles.hours}>
@@ -95,9 +104,9 @@ export default function Book() {
                       innerText="Giờ"
                       classNameInput={styles.input}
                       type="time"
-                      id="hours"
-                      error={errors.hours?.message}
-                      {...register("hours")}
+                      id="bookingHours"
+                      error={errors.bookingHours?.message}
+                      {...register("bookingHours")}
                     />
                   </div>
                 </div>
@@ -131,9 +140,9 @@ export default function Book() {
                     innerText="Họ và Tên người đặt"
                     classNameInput={styles.input}
                     type="text"
-                    id="author"
-                    error={errors.author?.message}
-                    {...register("author")}
+                    id="customer"
+                    error={errors.customer?.message}
+                    {...register("customer")}
                   />
                 </div>
                 <div className={styles.phoneNumber}>

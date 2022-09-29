@@ -3,9 +3,7 @@ import { axiosJWT } from "./axios";
 class RequestAPI {
   async reFresh() {
     try {
-      const response = await axiosJWT.post("/refresh", {
-        withCredentials: true,
-      });
+      const response = await axiosJWT.post("/refresh");
 
       return response.data;
     } catch (error) {

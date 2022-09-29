@@ -1,10 +1,9 @@
-import { Dispatch } from "@reduxjs/toolkit";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
-import { NavigateFunction } from "react-router-dom";
 import { login, logout } from "redux-toolkit/features/account/accountSlice";
 import { Action } from "types/Action";
 import { User } from "types/User";
+import { BASE_URL } from "./axios";
 import RequestAPI from "./RequestAPI";
 
 export const axiosInterceptors = ({
@@ -12,7 +11,9 @@ export const axiosInterceptors = ({
   dispatch,
   navigate,
 }: Action<User>) => {
-  const newInstance = axios.create();
+  const newInstance = axios.create({
+    baseURL: BASE_URL,
+  });
   newInstance.interceptors.request.use(
     async (config) => {
       let date = new Date();
@@ -45,6 +46,7 @@ export const axiosJWTInterceptors = ({
   navigate,
 }: Action<User>) => {
   const newInstance = axios.create({
+    baseURL: BASE_URL,
     withCredentials: true,
   });
 

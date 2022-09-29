@@ -1,7 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Lobster&family=Pacifico&display=swap");
-
 .container {
-  background-color: #fbfbfb;
   min-height: 100vh;
   margin-bottom: 90px;
 
@@ -49,7 +46,7 @@
         width: calc(100% / 3);
         padding: 0 20px 30px;
         .content {
-          box-shadow: 0 1px 2px rgb(0 0 0 / 10%);
+          box-shadow: 0 9px 12px rgb(0 0 0 / 10%);
           border-bottom: 1px solid rgba(236, 139, 139, 0.1019607843);
           padding: 10px;
           background-color: #fff;
@@ -61,7 +58,7 @@
             background-repeat: no-repeat;
             &:hover {
               cursor: pointer;
-              background-size: 420px 280px;
+              background-size: 110% 110%;
             }
             .img-hidden {
               max-width: 100%;

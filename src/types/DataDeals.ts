@@ -1,5 +1,5 @@
 export interface DataDeals {
   count: number;
-  rows: [];
+  data: [];
   totalPage: number;
 }

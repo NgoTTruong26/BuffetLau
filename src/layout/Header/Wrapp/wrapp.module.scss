@@ -1,56 +1,41 @@
 .wrapp {
   display: flex;
   margin: 0;
-  padding-left: 130px;
   > li {
     list-style: none;
     height: 100%;
-    margin: 0 10px;
+    margin: 0 18px;
     > a {
       display: inline-block;
       text-decoration: none;
       color: white;
       font-weight: bold;
-      padding: 22px 10px;
+      padding: 10px 0px;
       position: relative;
       transition: transform 0.3s ease;
     }
     .hoverable::before {
       position: absolute;
-      pointer-events: none;
-      z-index: -1;
       content: "";
-      top: 100%;
-      left: 5%;
-      height: 10px;
-      width: 90%;
-      opacity: 0;
-      background: -webkit-radial-gradient(
-        center,
-        ellipse,
-        rgb(255 255 255 / 92%) 0%,
-        rgba(255, 255, 255, 0) 80%
-      );
-      background: radial-gradient(
-        ellipse at center,
-        rgb(255 255 255 / 92%) 0%,
-        rgba(255, 255, 255, 0) 80%
-      );
-      /* W3C */
-      transition-duration: 0.3s;
-      transition-property: transform, opacity;
+      bottom: 2px;
+      left: 0;
+      height: 2px;
+      width: 100%;
+      background-color: #ca9c5e;
+      transition: transform 0.3s;
+      transform: scale(0, 1);
+      transform-origin: right;
     }
 
     .hoverable:not(.active):hover {
-      transform: translateY(-5px);
-      background-color: /* #444444; */ #383838;
+      color: #ca9c5e;
     }
     .hoverable:not(.active):hover:before {
-      opacity: 1;
-      transform: translateY(-5px);
+      transform: scale(1, 1);
+      transform-origin: left;
     }
     .active {
-      background-color: /* #444444 */ #565656;
+      color: #ca9c5e;
     }
   }
 }

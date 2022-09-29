@@ -1,0 +1,27 @@
+.border-sky-400 {
+  cursor: pointer;
+  min-height: 35px;
+  font-size: 17px;
+  transition: all 0.3s;
+  &:hover {
+    border-color: rgb(14 165 233);
+    color: rgb(14 165 233);
+  }
+  &:active {
+    border-color: rgb(2 132 199);
+    color: rgb(2 132 199);
+  }
+}
+
+.user {
+  & > div {
+    display: flex;
+    align-items: center;
+  }
+  > .grid {
+    display: grid !important;
+  }
+}
+.active {
+  background-color: #ecedee;
+}

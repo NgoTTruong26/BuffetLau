@@ -20,10 +20,12 @@ export default function LoginUser({ user }: Children) {
       <div className={styles.container}>
         <i className={clsx("fa-solid fa-circle-user", styles.user)}></i>
         <div className={styles.popover}>
-          <p>{user.fullName}</p>
+          <p>{`${user.lastName} ${user.firstName}`}</p>
           <Link to="/account/register">Đăng kí</Link>
           <Link to="/account/reset-password">Lấy lại mật khẩu</Link>
-          {user.admin && <Link to="admin/get-all-users">Xem thành viên</Link>}
+          {user.position.position === "admin" && (
+            <Link to="admin/get-all-users">Xem thành viên</Link>
+          )}
           <p onClick={() => logout({ dispatch, navigate, user })}>Đăng xuất</p>
         </div>
       </div>

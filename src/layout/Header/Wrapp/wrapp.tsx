@@ -16,7 +16,7 @@ export default function Wrapp() {
   return (
     <ul className={styles.wrapp}>
       {menu.map((item, index) => (
-        <li key={index}>
+        <li key={index} className="flex justify-center items-center">
           <Link
             className={clsx(styles.hoverable, {
               [styles.active]: pathName === item.href,

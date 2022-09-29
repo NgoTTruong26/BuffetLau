@@ -5,12 +5,15 @@ export interface User {
   gender: boolean;
   phoneNumber: string;
   address: string;
-  fullName: string;
+  firstName: string;
+  lastName: string;
   avatar: string;
-  admin: boolean;
   username: string;
   token: string;
-  position: string;
-  createdAt?: string;
-  updatedAt?: string;
+  position: {
+    position: string;
+  };
+  createdDate?: string;
+  updatedDate?: string;
+  deletedDate?: string;
 }

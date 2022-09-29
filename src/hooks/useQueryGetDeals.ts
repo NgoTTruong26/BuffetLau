@@ -9,6 +9,7 @@ const getData = async (page: number, searchParams: URLSearchParams) => {
         ? `${BASE_URL}/uu-dai?page=${page}`
         : `${BASE_URL}/uu-dai`
     );
+
     return res.data;
   } catch (error) {
     return error;

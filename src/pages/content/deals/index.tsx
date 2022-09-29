@@ -1,12 +1,9 @@
-import Axios from "axios";
 import styles from "./deals.module.scss";
 import { useEffect, useState } from "react";
 import Paginate from "./Paginate";
 import ContentPost from "./ContentPost";
 import { useSearchParams } from "react-router-dom";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { BASE_URL } from "api/axios";
-import { DataDeals } from "types/DataDeals";
 import {
   usePrefetchQueryDeals,
   useQueryGetDeals,
@@ -45,7 +42,7 @@ export default function Deals() {
         <div className={styles.title}>
           <div className={styles.titleContent}>Ưu Đãi</div>
         </div>
-        <ContentPost data={data! && data.rows} />
+        <ContentPost data={data! && data.data} />
         <div className={styles.paginate}>
           <Paginate
             countPageNumber={data! && data.totalPage}

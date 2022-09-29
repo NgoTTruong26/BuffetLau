@@ -1,12 +1,15 @@
 import Banner from "./Banner/banner";
-import MainHome from "./SetBuffet/setBuffet";
-import styles from "./bodyHome.module.scss";
+import OurMenus from "./OurMenus";
+import SetBuffet from "./SetBuffet/setBuffet";
 
 export default function Home() {
   return (
-    <div className={styles.wrap}>
+    <div className="relative">
       <Banner />
-      <MainHome />
+      <div className="max-w-[1170px] mx-auto mt-[-84px]">
+        <SetBuffet />
+        <OurMenus />
+      </div>
     </div>
   );
 }

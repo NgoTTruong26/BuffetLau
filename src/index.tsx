@@ -1,18 +1,19 @@
-import React, { Suspense } from "react";
+import { Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import { persistor, store } from "redux-toolkit/app/store";
 import { PersistGate } from "redux-persist/integration/react";
+import { RouterProvider } from "react-router-dom";
+import { router } from "routes/routes";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
-
-const queryClient = new QueryClient();
 
 root.render(
   //<React.StrictMode>
@@ -20,7 +21,7 @@ root.render(
     <PersistGate loading={true} persistor={persistor}>
       <Suspense fallback={<div>Loading</div>}>
         <QueryClientProvider client={queryClient}>
-          <App />
+          <RouterProvider router={router} />
         </QueryClientProvider>
       </Suspense>
     </PersistGate>
