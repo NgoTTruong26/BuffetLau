@@ -7,6 +7,13 @@ const Deals = lazy(() => import("../pages/content/deals"));
 const Book = lazy(() => import("../pages/content/bookings"));
 const Login = lazy(() => import("pages/account/Login"));
 const GetAllUsers = lazy(() => import("pages/content/admin/GetAllUsers"));
+const Bills = lazy(() => import("pages/content/employees/bills"));
+const CreateBills = lazy(
+  () => import("pages/content/employees/bills/CreateBills")
+);
+const PaymentDetails = lazy(
+  () => import("pages/content/employees/bills/PaymentDetails")
+);
 
 export const homeRoutes = [
   {
@@ -24,6 +31,24 @@ export const homeRoutes = [
   {
     path: "/admin/get-all-users",
     element: <GetAllUsers />,
+  },
+  {
+    path: "/employees/bills",
+    element: <Bills />,
+    children: [
+      {
+        path: "/employees/bills",
+        element: <CreateBills />,
+      },
+      {
+        path: "/employees/bills/create-bills",
+        element: <CreateBills />,
+      },
+      {
+        path: "/employees/bills/payment-details",
+        element: <PaymentDetails />,
+      },
+    ],
   },
 ];
 

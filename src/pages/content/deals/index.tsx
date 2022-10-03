@@ -25,6 +25,7 @@ export default function Deals() {
   const prefetchQueryDeals = usePrefetchQueryDeals;
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     if (data) {
       if (currentPage < data.totalPage) {
         prefetchQueryDeals(queryClient, currentPage, searchParams);
@@ -33,17 +34,18 @@ export default function Deals() {
   }, [data, queryClient, currentPage]);
 
   const handleChangePage = (e: number) => {
+    window.scrollTo(0, 0);
     setCurrentPage(e);
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.main}>
+    <div className="min-h-screen flex justify-center items-center ">
+      <div className="max-w-[1250px] w-full flex flex-wrap mt-[100px]">
         <div className={styles.title}>
           <div className={styles.titleContent}>Ưu Đãi</div>
         </div>
         <ContentPost data={data! && data.data} />
-        <div className={styles.paginate}>
+        <div className="w-full mb-[100px]">
           <Paginate
             countPageNumber={data! && data.totalPage}
             changePage={handleChangePage}

@@ -42,7 +42,7 @@ export default function Book() {
   const {
     handleSubmit,
     register,
-    /*     watch, */
+    watch,
     formState: { errors },
   } = useForm<Inputs>({ resolver: yupResolver(schema) });
 
@@ -50,14 +50,19 @@ export default function Book() {
     await bookingsAPI({ data });
   };
 
-  const user = useSelector((state: RootState) =>
+  const a = watch(["numberAdults"]);
+
+  /*   const user = useSelector((state: RootState) =>
     console.log(state.persistedReducer.account.login.data)
-  );
+  ); */
 
   return (
-    <div className={styles.container}>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className={styles.content}>
+    <div className="min-h-screen flex items-center justify-center">
+      <form
+        className="max-w-[1250px] w-full mt-[-60px]"
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <div>
           <div className={styles.main}>
             <div className={styles.title}>Đặt Bàn</div>
             <div className={styles.order}>
